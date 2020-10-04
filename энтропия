@@ -1,0 +1,30 @@
+
+let fs = require('fs');
+let arg = process.argv;
+let inText;
+fs.readFile(arg[2], (err, data) => {
+ if (err){
+ console.error(err);
+ return;
+	}
+ let s = data.toString();
+	
+let alphavit = new Array();
+for (let i=0; i < s.length; i++){
+alphavit[s.charAt(i)]=0;
+}
+for (let i=0; i < s.length; i++){
+alphavit[s.charAt(i)]++;
+}
+let res=0;
+let n=0;
+for (let i in alphavit){
+ alphavit[i]/=s.length;
+ n++;
+}
+for (let i in alphavit){
+ res-= alphavit[i]*Math.log2(alphavit[i]);
+}
+res /= Math.log2(n);
+console.log(res);
+});
