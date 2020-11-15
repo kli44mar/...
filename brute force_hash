@@ -1,0 +1,42 @@
+let s = 'abcabdecab';
+let t = 'cab';
+let T = t.split('');
+let S = s.split(''); 
+let n = S.length;
+let m = T.length;
+let hs = new Array;
+bruteForce(T,S,n,m);
+hash (S,T,s, t, m, n);
+function bruteForce (T,S,n,m) {
+    for (let i=0; i<=n-m+1; i++){
+        for (let j=0;S[i+j-1]==T[j]&&j<s.length; j++){
+            if (j==m-1)
+            hs.push(i);
+        }
+    }
+    console.log(hs);
+}
+
+function hash (S,T,s,t, m, n){
+let hashS=0;
+let hashT=0;
+let hs2 = new Array();
+for (let i=0; i< m; i++){
+	hashT+=t.charCodeAt(i);
+	hashS+=s.charCodeAt(i);
+}
+let l=1;
+for (let i=0; i<=n-m+1; i++){
+    if (hashT==hashS){
+        for (let k=i+1; k<=i+m+3; k+=3){
+            for (let j=0;(S[k+j-1]==T[j]) && (j<m);j++){
+                  if (j==m-1)
+                hs2.push(k);
+            }
+        }
+    }
+    hashS+=s.charCodeAt(l+m-1) - s.charCodeAt(l-1);
+    l++;
+}
+    console.log(hs2);
+}
