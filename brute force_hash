@@ -28,7 +28,7 @@ for (let i=0; i< m; i++){
 let l=1;
 for (let i=0; i<=n-m+1; i++){
     if (hashT==hashS){
-        for (let k=i+1; k<=i+m+3; k+=3){
+        for (let k=i+1; k<=i+m+m; k+=m){
             for (let j=0;(S[k+j-1]==T[j]) && (j<m);j++){
                   if (j==m-1)
                 hs2.push(k);
