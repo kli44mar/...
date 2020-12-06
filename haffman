@@ -53,8 +53,7 @@ function Node(letter, freq, used, link, code){
         tree[minInd2].used = 1;
         tree[minInd2].link = tree.length;
         tree[minInd2].code = '1';
-        let newNode = new Node(tree[minInd2].letter + tree[minInd].letter, tree[minInd].freq + tree[minInd2].freq, 0, null, '');
-        tree.push(newNode);
+        tree.push(new Node(tree[minInd2].letter + tree[minInd].letter, tree[minInd].freq + tree[minInd2].freq, 0, null, ''));
     }
     for (let i = tree.length - 2; i >= 0; i--) {
         tree[i].code = tree[tree[i].link].code + tree[i].code;
@@ -63,7 +62,7 @@ function Node(letter, freq, used, link, code){
     for (let i = 0; i < str.length; i++) {
         for (let j = 0; j < tree.length; j++) {
             if (str[i] == tree[j].letter)
-                coded += tree[j].code;
+                coded = coded + tree[j].code;
         }
     }
     decode(coded);
@@ -76,10 +75,10 @@ function decode(coded){
     let codeCh = '';
     
     for (let i = 0; i < coded.length; i++) {
-        codeCh += coded[i];
+        codeCh = codeCh + coded[i];
         for (let j = 0; j < treeLength; j++) {
             if (codeCh == tree[j].code) {
-                decoded += tree[j].letter;
+                decoded = decoded + tree[j].letter;
                 codeCh = '';
             }
         }
