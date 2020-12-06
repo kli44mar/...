@@ -60,15 +60,14 @@ function Node(letter, freq, used, link, code){
     }
     let coded = '';
     for (let i = 0; i < str.length; i++) {
-        for (let j = 0; j < tree.length; j++) {
+        for (let j=tree.length - 2; j >= 0; j--) {
             if (str[i] == tree[j].letter)
                 coded = coded + tree[j].code;
         }
     }
-    decode(coded);
     console.log(tree);
     console.log(coded);
-    
+    decode(coded);
 
 function decode(coded){
     let decoded = '';
@@ -84,4 +83,4 @@ function decode(coded){
         }
     }
     console.log(decoded);
-}    
+}        
