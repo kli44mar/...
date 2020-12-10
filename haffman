@@ -21,37 +21,39 @@ for (i in alph) {
     tree.push(newNode);
 }
 treeLength = tree.length;
+
 for (let i = 0; i < treeLength - 1; i++) {
     minInd = -1;
+    minInd2 = -1;
     minFreq = str.length;
-
+    minFreq2 = str.length;
     for (let j = 0; j < tree.length; j++) {
-        if (tree[j].freq <= minFreq && tree[j].used == 0) {
+        if ((tree[j].used == 0) && (tree[j].freq <= minFreq2)) {
+            minFreq = minFreq2;
+            minInd = minInd2;
+            minInd2 = j;
+            minFreq2 = tree[j].freq;
+        } else if (tree[j].used == 0 && tree[j].freq <= minFreq) {
             minFreq = tree[j].freq;
             minInd = j;
         }
     }
-    minInd2 = -1;
-    minFreq2 = str.length;
 
-    for (let j = 0; j < tree.length; j++) {
-        if (tree[j].freq <= minFreq2 && j != minInd && tree[j].used == 0) {
-            minFreq2 = tree[j].freq;
-            minInd2 = j;
-        }
-    }
-    if (minInd2 == -1 || minInd == -1)
-        break;
     tree[minInd].used = 1;
     tree[minInd].link = tree.length;
-    tree[minInd].code = '0';
     tree[minInd2].used = 1;
     tree[minInd2].link = tree.length;
-    tree[minInd2].code = '1';
     tree.push(new Node(tree[minInd2].letter + tree[minInd].letter, tree[minInd].freq + tree[minInd2].freq, 0, null, ''));
 }
+
+tree[tree.length - 1].used = 1;
 for (let i = tree.length - 2; i >= 0; i--) {
-    tree[i].code = tree[tree[i].link].code + tree[i].code;
+    if (tree[tree[i].link].used) {
+        tree[i].code = tree[tree[i].link].code + '1';
+        tree[tree[i].link].used = 0;
+    }
+    else
+        tree[i].code = tree[tree[i].link].code + '0';
 }
 let coded = '';
 for (let i = 0; i < str.length; i++) {
@@ -78,4 +80,4 @@ function decode(coded) {
         }
     }
     console.log(decoded);
-}
+}   
