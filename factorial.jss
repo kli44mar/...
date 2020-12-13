@@ -1,0 +1,1 @@
+set 24 5 set 25 1 set 26 1 set 27 1 pr 26 27 27 add 26 25 26 repeat 24 output 27 exit
