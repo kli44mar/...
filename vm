@@ -37,10 +37,6 @@ while (flag)
 			else
 				ip += 2;
 			break;
-		case 'copy':
-			mem[mem[ip + 2]] = mem[mem[ip + 1]];
-			ip += 3;
-			break;
 		case 'minus':
 			mem[mem[ip + 3]] = mem[mem[ip + 1]] - mem[mem[ip + 2]];
 			ip += 4;
