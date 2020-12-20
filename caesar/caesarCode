@@ -1,5 +1,4 @@
 let fs = require('fs');
-let arg = process.argv;
 let text = fs.readFileSync('text.txt');
 text = text.toString();
 let textS = text.split('');
@@ -15,19 +14,15 @@ shift = decode(res, alph, textForFr);
 res2 = code(res, alph, -shift);
 console.log(res2);
 
-function alphIndex(symbol, alph) {
-	for (var i = 0; i < alph.length; ++i) {
-		if (alph[i] == symbol)
-			return i;
-	}
-	return -1;
-}
-
 function code(textS, alph, n) {
 	var res = "";
+	let hashAlph = new Array;
+	for (var i = 0; i < alph.length; ++i) {
+		hashAlph[alph[i]] = i;
+	}
 	for (var i = 0; i < textS.length; ++i) {
-		var id = alphIndex(textS[i].toLowerCase(), alph);
-		if (id != -1) {
+		var id = hashAlph[textS[i].toLowerCase()];
+		if (id != undefined) {
 			if (textS[i].toLowerCase() == textS[i])
 				res += alph[(id + n) % alph.length];
 			else
