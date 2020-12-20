@@ -56,28 +56,28 @@ for (let i = tree.length - 2; i >= 0; i--) {
         tree[i].code = tree[tree[i].link].code + '0';
 }
 let coded = '';
+let codedAr = new Array;
+let decodedAr = new Array;
+for (let j = 0; j < treeLength; j++) {
+    codedAr[tree[j].letter] = tree[j].code;
+    decodedAr[tree[j].code] = tree[j].letter;
+}
 for (let i = 0; i < str.length; i++) {
-    for (let j = tree.length - 2; j >= 0; j--) {
-        if (str[i] == tree[j].letter)
-            coded = coded + tree[j].code;
-    }
+    coded += codedAr[str[i]]
 }
 console.log(tree);
-console.log(coded);
-decode(coded);
+console.log(coded)
+decode(coded, decodedAr);
 
-function decode(coded) {
+function decode(coded, decodedAr) {
     let decoded = '';
-    let codeCh = '';
-
-    for (let i = 0; i < coded.length; i++) {
-        codeCh = codeCh + coded[i];
-        for (let j = 0; j < treeLength; j++) {
-            if (codeCh == tree[j].code) {
-                decoded = decoded + tree[j].letter;
-                codeCh = '';
-            }
+    let symbols = '';
+    for (let j = 0; j < coded.length; j++) {
+        symbols += coded[j];
+        if (decodedAr[symbols] != undefined) {
+            decoded += decodedAr[symbols];
+            symbols = '';
         }
     }
     console.log(decoded);
-}   
+} 
