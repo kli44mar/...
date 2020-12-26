@@ -1,0 +1,45 @@
+let fs = require('fs');
+let s = fs.readFileSync('war&peace.txt');
+s = s.toString();
+let t = 'Buonaparte';
+
+function automata(s, t) {
+    let n = s.length;
+    let m = t.length;
+    alph = new Array()
+    for (i = 0; i < m; i++)
+        alph[t.charAt(i)] = 0;
+
+    let del = new Array(m + 1)
+
+    for (j = 0; j <= m; j++)
+        del[j] = new Array();
+
+    for (i in alph)
+        del[0][i] = 0;
+
+    for (j = 0; j < m; j++) {
+        prev = del[j][t.charAt(j)]
+        del[j][t.charAt(j)] = j + 1;
+        for (i in alph)
+            del[j + 1][i] = del[prev][i];
+    }
+    let indexAr = new Array();
+    let index = 0;
+    for (let i = 0; i < n; i++) {
+        if (del[index][s.charAt(i)] != undefined)
+            index = del[index][s.charAt(i)];
+        else
+            index = 0;
+            
+        if (index == m)
+            indexAr.push(i - m + 1);
+
+    }
+    return indexAr;
+}
+
+let t0 = new Date();
+let res = automata(s, t);
+let t1 = new Date();
+console.log('Took', (t1.getMilliseconds() - t0.getMilliseconds()), 'milliseconds to find the result:', res);
